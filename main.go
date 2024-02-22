@@ -76,7 +76,7 @@ func getRoku(ScanTime int) {
 	defer conn.Close()
 	fmt.Println(conn.LocalAddr().(*net.UDPAddr).String())
 	oct := strings.Split(conn.LocalAddr().(*net.UDPAddr).String(), ".")
-	client := getClient(200)
+	client := getClient(ScanTime)
 	//widget.NewSelect(rokuList, func(value string) {})
 	var wg sync.WaitGroup
 	for i := 1; i <= 254; i++ {
@@ -143,7 +143,7 @@ var deviceToIP = make(map[string]string)
 
 func main() {
 	//start looking for Roku TVs on the local network.
-	go getRoku(400)
+	go getRoku(600)
 	// Create a new Fyne application
 	a := app.New()
 	w = a.NewWindow("Roku")
@@ -220,7 +220,7 @@ func main() {
 				dropdown.Options = []string{"Please Wait..."}
 				dropdown.SetSelectedIndex(0)
 				dropdown.Refresh()
-				getRoku(500)
+				getRoku(1500)
 			}),
 			fyne.NewMenuItem("Quit", func() { a.Quit() }),
 		),
